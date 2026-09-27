@@ -1,0 +1,12 @@
+const nav=document.querySelector('.nav'),menu=document.querySelector('.menu');
+menu?.addEventListener('click',()=>nav.classList.toggle('open'));
+document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));
+const glow=document.querySelector('.cursor-glow');
+window.addEventListener('pointermove',e=>{if(glow){glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px';}});
+const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+const modal=document.getElementById('modal'),title=document.getElementById('modal-title'),text=document.getElementById('modal-text');
+const details={john:['John Deere Operations Center','Machine-data synchronization, API connectivity and MTG transfer workflows.'],expert:['ExpertConnect','Inbound/outbound ticket handling, communication workflows and operational status updates.']};
+document.querySelectorAll('[data-panel]').forEach(b=>b.onclick=()=>{let d=details[b.dataset.panel];if(modal){title.textContent=d[0];text.textContent=d[1];modal.classList.add('show')}});
+document.querySelector('.close')?.addEventListener('click',()=>modal.classList.remove('show'));
+modal?.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('show')});
